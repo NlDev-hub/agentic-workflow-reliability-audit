@@ -50,6 +50,30 @@ ALLOWED_CONTEXTS = [
     'not a security',
     'not a compliance',
     'no claim that this audit makes',
+    'not a request for paid work',
+    'does not accept paid work',
+    'does not accept paid work, payment',
+    'does not accept paid work, payment, support requests',
+    'separate private approval, payment, and legal boundary',
+    'separate private approval',
+    'not a request for paid work, support, a contract',
+    'not a request for paid work, support, a contract, procurement, legal advice',
+    'legal advice, security review, compliance certification, or guaranteed outcome',
+    'legal advice, security review, compliance certification, or guaranteed outcomes',
+]
+REQUIRED_ISSUE_TEMPLATE_MARKERS = [
+    'public feedback only',
+    'do not include confidential',
+    'client, customer, product, security, accounting, tender',
+    'secrets, credentials, tokens, logs, private urls',
+    'screenshots, attachments, account identifiers, personal data',
+    'does not accept paid work, payment, support requests',
+    'statements of work, contracts, invoices, procurement requests',
+    'separate private approval, payment, and legal boundary',
+]
+FORBIDDEN_ISSUE_TEMPLATE_PROMPTS = [
+    'email', 'phone', 'company name', 'budget', 'invoice address', 'billing',
+    'upload a file', 'screenshot required', 'logs required', 'private url required',
 ]
 REQUIRED_README_MARKERS = [
     'synthetic examples only',
@@ -136,6 +160,15 @@ def validate_package(root: Path = ROOT) -> dict[str, Any]:
         for marker in ('synthetic examples only', 'no real customer, company, user, or product data', 'no payment', 'no guaranteed outcomes'):
             if marker not in text:
                 errors.append(f'docs/index.html missing marker: {marker}')
+    issue_template = root / '.github' / 'ISSUE_TEMPLATE' / 'public-fit-check.yml'
+    if issue_template.exists():
+        template_text = issue_template.read_text(encoding='utf-8').lower()
+        for marker in REQUIRED_ISSUE_TEMPLATE_MARKERS:
+            if marker not in template_text:
+                errors.append(f'public-fit-check issue template missing boundary marker: {marker}')
+        for forbidden in FORBIDDEN_ISSUE_TEMPLATE_PROMPTS:
+            if forbidden in template_text:
+                errors.append(f'public-fit-check issue template asks for unsafe intake prompt: {forbidden}')
     errors.extend(scan_publishable_files(root))
     summary = {
         'package': 'agentic-workflow-reliability-audit',

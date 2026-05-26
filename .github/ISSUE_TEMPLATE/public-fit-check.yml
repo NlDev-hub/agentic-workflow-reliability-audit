@@ -1,0 +1,40 @@
+name: Public fit-check / non-sensitive workflow signal
+description: Share a public, non-confidential agent workflow reliability pattern or suggestion.
+title: "[Public fit-check]: "
+labels: ["public-fit-check"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Public feedback only.
+
+        Use this only for synthetic examples, public repositories, public documentation, or generic workflow patterns.
+
+        Do not include confidential, client, customer, product, security, accounting, tender, procurement, contractual, legal, or internal business data.
+
+        Do not include secrets, credentials, tokens, logs, private URLs, screenshots, attachments, account identifiers, personal data, or anything that is not already safe to publish publicly.
+
+        This repository does not accept paid work, payment, support requests, statements of work, contracts, invoices, procurement requests, service commitments, legal advice, security review, compliance certification, or guaranteed outcomes through GitHub Issues.
+
+        Commercial or private work would require a separate private approval, payment, and legal boundary outside this repository.
+
+        Issues that include sensitive or inappropriate material may be closed, edited, or removed.
+  - type: textarea
+    id: public-pattern
+    attributes:
+      label: Public/non-sensitive workflow pattern or suggestion
+      description: Describe only a generic, public, non-confidential pattern. Do not include real names, URLs, logs, screenshots, attachments, secrets, credentials, account identifiers, or personal data.
+      placeholder: "Example: An agent repeats the same verification step because state is not persisted between runs."
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Public-safety confirmation
+      options:
+        - label: I confirm this issue contains only public, non-confidential, non-sensitive information.
+          required: true
+        - label: I confirm this is not a request for paid work, support, a contract, procurement, legal advice, security review, compliance certification, or guaranteed outcome.
+          required: true
+        - label: I understand any private or commercial work would require a separate private approval, payment, and legal boundary outside this repository.
+          required: true

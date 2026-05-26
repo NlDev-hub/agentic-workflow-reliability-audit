@@ -48,6 +48,19 @@ class PublicPackageContractTest(unittest.TestCase):
         errors = validator.scan_text_for_risky_claims("unsafe.md", unsafe.lower())
         self.assertGreaterEqual(len(errors), 4)
 
+    def test_public_fit_check_template_blocks_sensitive_intake(self):
+        validator = load_validator()
+        template = ROOT / ".github" / "ISSUE_TEMPLATE" / "public-fit-check.yml"
+        text = template.read_text(encoding="utf-8").lower()
+        for marker in validator.REQUIRED_ISSUE_TEMPLATE_MARKERS:
+            self.assertIn(marker, text)
+        for forbidden in validator.FORBIDDEN_ISSUE_TEMPLATE_PROMPTS:
+            self.assertNotIn(forbidden, text)
+        self.assertIn("screenshots, attachments", text)
+        self.assertIn("public feedback only", text)
+        self.assertIn("does not accept paid work, payment, support requests", text)
+        self.assertIn("separate private approval, payment, and legal boundary", text)
+
     def test_docs_are_static_no_runtime_surface(self):
         text = (ROOT / "docs" / "index.html").read_text(encoding="utf-8").lower()
         for forbidden in ["<form", "fetch(", "xmlhttprequest", "websocket", "localstorage", "sessionstorage", "stripe", "paypal", "checkout", "analytics", "cookie"]:

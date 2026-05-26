@@ -23,6 +23,14 @@ It shows a practical, evidence-first way to inspect agent workflows for repeated
 - No claim that this audit makes an AI system safe, secure, compliant, profitable, production-ready, or fully autonomous.
 - A passing validator is only a local copy-safety signal; it is not approval to publish, send, certify, sell, or claim anything.
 
+## Public fit-check
+
+If this checklist is useful, open a GitHub issue with a public/non-sensitive workflow failure pattern or suggestion.
+
+Do not include confidential, client, customer, product, security, accounting, tender, procurement, contractual, legal, internal business, personal, secret, credential, token, log, private URL, screenshot, attachment, account identifier, or other sensitive content.
+
+This repository does not accept paid work, payment, support requests, statements of work, contracts, invoices, procurement requests, service commitments, legal advice, security review, compliance certification, or guaranteed outcomes through GitHub Issues. Any private or commercial work would require a separate private approval, payment, and legal boundary outside this repository.
+
 ## Run locally
 
 ```bash
